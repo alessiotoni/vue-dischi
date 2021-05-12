@@ -11,11 +11,39 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- my css -->
     <link rel="stylesheet" href="style.css">
-    <title>vue-dischi</title>
+    <title>Vue Dischi Musicali</title>
 </head>
 <body>
-    <div id="app"></div>
+    <div id="app">
+        <div class="container">
+            <div class="navbar">
+                <h2>la tua libreria</h2>
+                <select name="genre" id="" @change="filterAlbumsList()" v-model="filterGenre">
+                    <option selected value="all">All</option>
+                    <option  :value="genre" v-for="genre in genreList">{{genre}}</option>
+                </select>
+            </div>
+            <div class="box_albums">
+                <div class="box_card" v-if="!showLoadSpinner">
+                    <div class="card" v-for="album in filteredAlbumsList" >
+                        <div class="box_img">
+                            <img :src="album.poster" alt="">
+                        </div>
+                        <h4>{{album.title}}</h4>
+                        <h5>{{album.author}}</h5>
+                        <h6>{{album.year}}</h6>
+                    </div>
+                </div>
+                
+                <div v-else class="load_spinner">
+                    <div  class="lds-dual-ring"></div>
+                    <h3>Stiamo caricando la tua libreria</h3>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <script src="app.js"></script>
 </body>
